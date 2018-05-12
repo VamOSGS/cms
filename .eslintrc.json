@@ -1,0 +1,9 @@
+{
+  "parser": "babel-eslint",
+  "plugins": ["vue"],
+  "extends": "airbnb-base",
+  "rules": {
+    "no-new": 0,
+    "no-unused-vars": 0
+  }
+}

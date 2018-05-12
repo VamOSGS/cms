@@ -1,12 +1,17 @@
 <template>
   <div>
-    <h1>{{ msg }}</h1>
+    <Login />
   </div>
 </template>
 
 <script>
+import Login from './Login';
+
 export default {
   name: 'root',
+  components: {
+    Login
+  },
   data() {
     return {
       msg: 'Welcome to Vue.js'
@@ -16,11 +21,11 @@ export default {
 </script>
 
 <style lang="less">
-div {
-  h1 {
-    font-family: monospace;
-    color: rgb(0, 131, 0);
-    text-align: center;
-  }
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: #35394a;
+  font-family: 'Helvetica', 'Arial';
+  color: #EA5C54;
 }
 </style>

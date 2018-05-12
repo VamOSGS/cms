@@ -1,11 +1,12 @@
 <template>
   <div id="login">
-    <form>
+    <form @submit.prevent="submit">
       <p>Login to CMS dashboard</p>
+      <p :if="err" class="err">{{ err }}</p>
       <div class="fields">
-        <input type="text" placeholder="Username">
-        <input type="password"  placeholder="Password">
-        <button>Sign in</button>
+        <input @keydown="clearError" type="text" placeholder="Username" v-model="username">
+        <input @keydown="clearError" type="password" placeholder="Password" v-model="password">
+        <button >Sign in</button>
       </div>
     </form>
   </div>
@@ -13,7 +14,28 @@
 
 <script>
 export default {
-  name: 'Login'
+  name: 'Login',
+  data() {
+    return {
+      username: '',
+      password: '',
+      err: ''
+    };
+  },
+  methods: {
+    submit() {
+      if (this.username && this.password) { 
+        // send
+        this.username = '';
+        this.password = '';
+      } else {
+        this.err = 'You need to fill all fields';
+      }
+    },
+    clearError() {
+      if (this.err) this.err = '';
+    }
+  }
 };
 </script>
 
@@ -47,6 +69,9 @@ export default {
       color: #afb1be;
       width: 100%;
       margin: 0 0 10px 0;
+      &.err {
+        color: red;
+      }
     }
     .fields {
       margin: 10px auto;

@@ -1,31 +1,35 @@
 <template>
   <div id="login">
-    <form @submit.prevent="submit">
-      <p>Login to CMS dashboard</p>
-      <p :if="err" class="err">{{ err }}</p>
-      <div class="fields">
-        <input @keydown="clearError" type="text" placeholder="Username" v-model="username">
-        <input @keydown="clearError" type="password" placeholder="Password" v-model="password">
-        <button >Sign in</button>
-      </div>
-    </form>
+    <v-card class="form">
+      <v-card-title primary-title>
+        <h3 class="headline mb-0">Login to CMS dashboard</h3>
+      </v-card-title>
+      <v-form v-model="valid">
+        <v-text-field v-model="username" :rules="nameRules" label="Username" required></v-text-field>
+        <v-text-field v-model="password" :append-icon="e1 ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (e1 = !e1)" :type="e1 ? 'password' : 'text'" :rules="passRules" label="Password" required></v-text-field>
+        <v-btn @click="submit">submit</v-btn>
+      </v-form>
+    </v-card>
   </div>
 </template>
 
 <script>
 export default {
   name: 'Login',
-  data() {
-    return {
-      username: '',
-      password: '',
-      err: ''
-    };
-  },
+  data: () => ({
+    valid: false,
+    username: '',
+    nameRules: [v => !!v || 'Name is required'],
+    password: '',
+    passRules: [v => !!v || 'Password is required']
+  }),
   methods: {
     submit() {
-      if (this.username && this.password) { 
-        // send
+      const { username, password } = this;
+      if (username && password) {
+        this.$http
+          .post('http://localhost:3000/auth', { username, password })
+          .then(res => console.log(res.data), err => console.log(err));
         this.username = '';
         this.password = '';
       } else {
@@ -47,16 +51,11 @@ export default {
   justify-content: center;
   height: 100vh;
   margin: 0;
-  form {
+  .form {
     opacity: 1;
-    top: 20px;
-    transition-property: transform, opacity, box-shadow, top, left;
-    transition-duration: 0.5s;
-    transform-origin: 161px 100%;
     position: relative;
-    width: 240px;
+    width: 400px;
     border-top: 2px solid #d8312a;
-    height: 300px;
     position: absolute;
     left: 0;
     right: 0;
@@ -64,50 +63,7 @@ export default {
     top: 0;
     bottom: 0;
     padding: 100px 40px 40px 40px;
-    background: linear-gradient(45deg, #35394a 0%, #1f222e 100%);
-    p {
-      color: #afb1be;
-      width: 100%;
-      margin: 0 0 10px 0;
-      &.err {
-        color: red;
-      }
-    }
-    .fields {
-      margin: 10px auto;
-      display: flex;
-      flex-direction: column;
-      * {
-        outline: 0;
-      }
-      input {
-        // background: #3b4148;
-        border: 0.0625em solid #e5e5e5;
-        padding: 1em 1.25em;
-        margin: 5px 0;
-        transition: 0.3s;
-        &:hover {
-          background: #e5e5e5;
-        }
-      }
-      button {
-        margin-top: 10px;
-        cursor: pointer;
-        border: none;
-        background: none;
-        text-transform: uppercase;
-        padding: 10px 0;
-        border: 1px solid #ea5c54;
-        color: #ea5c54;
-        width: 40%;
-        border-radius: 2px;
-        transition: 0.5s;
-        &:hover {
-          background: #ea5c54;
-          color: white;
-        }
-      }
-    }
+    // background: linear-gradient(45deg, #35394a 0%, #1f222e 100%);
   }
 }
 </style>

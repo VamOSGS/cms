@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <v-app dark>
     <Login />
-  </div>
+  </v-app >
 </template>
 
 <script>
@@ -24,8 +24,6 @@ export default {
 body {
   margin: 0;
   overflow-x: hidden;
-  background: #35394a;
   font-family: 'Helvetica', 'Arial';
-  color: #EA5C54;
 }
 </style>

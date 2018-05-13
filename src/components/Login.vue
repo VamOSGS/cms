@@ -32,6 +32,7 @@
 export default {
   name: 'Login',
   data: () => ({
+    server: 'https://cms-auth-server.herokuapp.com/auth',
     valid: false,
     vIconShow: true,
     password: '',
@@ -43,7 +44,7 @@ export default {
     submit() {
       const { username, password } = this;
       this.$http
-        .post('http://localhost:3000/auth', {
+        .post(this.server, {
           username,
           password
         })
@@ -64,6 +65,9 @@ export default {
           }
         });
     }
+  },
+  created() {
+    this.$http.get(this.server);
   }
 };
 </script>

@@ -3,23 +3,24 @@
     <Login v-if="!loggedIn"
            @logIn="handleLogin" />
     <Dashboard v-if="loggedIn"
+               :secret="secret"
                @logOut="handleLogOut" />
   </v-app>
 </template>
 
 <script>
+import jwtDecode from 'jwt-decode';
 import Login from './Login';
 import Dashboard from './Dashboard';
 
 export default {
-  name: 'root',
+  name: 'Root',
   components: {
     Login,
     Dashboard
   },
   data() {
     return {
-      msg: 'Welcome to Vue.js',
       loggedIn: false,
       secret: ''
     };
@@ -36,11 +37,14 @@ export default {
     handleLogOut() {
       localStorage.removeItem('token');
       this.loggedIn = false;
+      this.secret = '';
     },
     checkLoggin() {
       const token = localStorage.getItem('token');
       if (token) {
+        const { tokenData } = jwtDecode(token);
         this.loggedIn = true;
+        this.secret = tokenData.secret;
       }
     }
   }

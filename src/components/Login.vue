@@ -41,7 +41,7 @@ export default {
   }),
   methods: {
     submit() {
-      let { username, password } = this;
+      const { username, password } = this;
       this.$http
         .post('http://localhost:3000/auth', {
           username,
@@ -50,19 +50,17 @@ export default {
         .then(res => res.data, console.log)
         .then(res => {
           if (res.success) {
-            console.log('DONE');
-          } else {
-            if (res.field === 'username') {
-              this.nameRules = [
-                ...this.nameRules,
-                v => v !== username || res.message
-              ];
-            } else if (res.field === 'password') {
-              this.passRules = [
-                ...this.passRules,
-                v => v !== password || res.message
-              ];
-            }
+            this.$emit('logIn', res.data);
+          } else if (res.field === 'username') {
+            this.nameRules = [
+              ...this.nameRules,
+              v => v !== username || res.message
+            ];
+          } else if (res.field === 'password') {
+            this.passRules = [
+              ...this.passRules,
+              v => v !== password || res.message
+            ];
           }
         });
     }

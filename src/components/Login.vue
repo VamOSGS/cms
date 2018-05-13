@@ -2,12 +2,27 @@
   <div id="login">
     <v-card class="form">
       <v-card-title primary-title>
-        <h3 class="headline mb-0">Login to CMS dashboard</h3>
+        <h2>Login to CMS dashboard</h2>
       </v-card-title>
-      <v-form v-model="valid">
-        <v-text-field v-model="username" :rules="nameRules" label="Username" required></v-text-field>
-        <v-text-field v-model="password" :append-icon="e1 ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (e1 = !e1)" :type="e1 ? 'password' : 'text'" :rules="passRules" label="Password" required></v-text-field>
-        <v-btn @click="submit">submit</v-btn>
+      <v-form ref="form"
+              v-model="valid">
+        <v-text-field v-model="username"
+                      :rules="nameRules"
+                      label="Username"
+                      required>
+        </v-text-field>
+        <v-text-field v-model="password"
+                      :append-icon="vIconShow ? 'visibility' : 'visibility_off'"
+                      :append-icon-cb="() => (vIconShow = !vIconShow)"
+                      :type="vIconShow ? 'password' : 'text'"
+                      :rules="passRules"
+                      label="Password"
+                      required>
+        </v-text-field>
+        <v-btn @click="submit"
+               color="primary"
+               :disabled="!valid"
+               flat>Login</v-btn>
       </v-form>
     </v-card>
   </div>
@@ -18,26 +33,38 @@ export default {
   name: 'Login',
   data: () => ({
     valid: false,
+    vIconShow: true,
+    password: '',
     username: '',
     nameRules: [v => !!v || 'Name is required'],
-    password: '',
     passRules: [v => !!v || 'Password is required']
   }),
   methods: {
     submit() {
-      const { username, password } = this;
-      if (username && password) {
-        this.$http
-          .post('http://localhost:3000/auth', { username, password })
-          .then(res => console.log(res.data), err => console.log(err));
-        this.username = '';
-        this.password = '';
-      } else {
-        this.err = 'You need to fill all fields';
-      }
-    },
-    clearError() {
-      if (this.err) this.err = '';
+      let { username, password } = this;
+      this.$http
+        .post('http://localhost:3000/auth', {
+          username,
+          password
+        })
+        .then(res => res.data, console.log)
+        .then(res => {
+          if (res.success) {
+            console.log('DONE');
+          } else {
+            if (res.field === 'username') {
+              this.nameRules = [
+                ...this.nameRules,
+                v => v !== username || res.message
+              ];
+            } else if (res.field === 'password') {
+              this.passRules = [
+                ...this.passRules,
+                v => v !== password || res.message
+              ];
+            }
+          }
+        });
     }
   }
 };
@@ -52,18 +79,19 @@ export default {
   height: 100vh;
   margin: 0;
   .form {
-    opacity: 1;
-    position: relative;
     width: 400px;
-    border-top: 2px solid #d8312a;
-    position: absolute;
-    left: 0;
-    right: 0;
+    border-top: 2px solid #2196f3;
     margin: auto;
-    top: 0;
-    bottom: 0;
-    padding: 100px 40px 40px 40px;
-    // background: linear-gradient(45deg, #35394a 0%, #1f222e 100%);
+    padding: 40px;
+    @media screen and (max-width: 410px) {
+      width: 350px;
+    }
+    @media screen and (max-width: 350px) {
+      width: 310px;
+    }
+    .btn {
+      margin-top: 20px;
+    }
   }
 }
 </style>

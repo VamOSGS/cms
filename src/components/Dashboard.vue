@@ -13,7 +13,7 @@
                flat>
           View
         </v-btn>
-        <v-btn @click="logOut"
+        <v-btn @click="handleLogOut"
                flat>log out</v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -21,23 +21,17 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'Dashboard',
-  computed: mapGetters({
-    secret: 'mainStore/secret'
-  }),
+  computed: { ...mapGetters(['secret']) },
   methods: {
-    logOut() {
-      this.$emit('logOut');
+    ...mapActions(['logOut']),
+    handleLogOut() {
+      localStorage.removeItem('token');
+      this.logOut();
     }
-  },
-  props: ['secretKey'],
-  data: function() {
-    return {
-      secreta: this.secretKey
-    };
   }
 };
 </script>

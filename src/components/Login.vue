@@ -49,6 +49,7 @@ export default {
     passRules: [v => !!v || 'Password is required']
   }),
   methods: {
+    ...mapActions(['logIn']),
     submit() {
       this.loading = true;
       const { username, password } = this;
@@ -60,7 +61,8 @@ export default {
         .then(res => res.data, console.log)
         .then(res => {
           if (res.success) {
-            this.$emit('logIn', res.data);
+            localStorage.setItem('token', res.data.token);
+            this.logIn(res.data.secret);
           } else if (res.field === 'username') {
             this.nameRules = [
               ...this.nameRules,
@@ -72,9 +74,7 @@ export default {
               v => v !== password || res.message
             ];
           }
-          setTimeout(() => {
-            this.loading = false;
-          }, 500);
+          this.loading = false;
         });
     }
   },

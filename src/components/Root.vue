@@ -1,15 +1,14 @@
 <template>
   <v-app dark>
-    <Login v-if="!loggedIn"
-           @logIn="handleLogin" />
+    <Login v-if="!loggedIn" />
     <Dashboard v-if="loggedIn"
-               :secret="secret"
-               @logOut="handleLogOut" />
+               :secret="secret" />
   </v-app>
 </template>
 
 <script>
 import jwtDecode from 'jwt-decode';
+import { mapGetters, mapActions } from 'vuex';
 import Login from './Login';
 import Dashboard from './Dashboard';
 
@@ -19,16 +18,12 @@ export default {
     Login,
     Dashboard
   },
-  data() {
-    return {
-      loggedIn: false,
-      secret: ''
-    };
-  },
+  computed: { ...mapGetters(['loggedIn', 'secret']) },
   beforeMount() {
     this.checkLoggin();
   },
   methods: {
+    ...mapActions(['logIn']),
     handleLogin({ token, secret }) {
       localStorage.setItem('token', token);
       this.secret = secret;
@@ -43,8 +38,7 @@ export default {
       const token = localStorage.getItem('token');
       if (token) {
         const { tokenData } = jwtDecode(token);
-        this.loggedIn = true;
-        this.secret = tokenData.secret;
+        this.logIn(token.secret);
       }
     }
   }

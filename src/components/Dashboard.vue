@@ -1,14 +1,33 @@
 <template>
   <div>
-    <h1>Dashboard</h1>
-    <v-btn @click="logOut">log out</v-btn>
-    {{ secret }}
+
+    <v-toolbar>
+      <v-toolbar-side-icon></v-toolbar-side-icon>
+      <v-toolbar-title>
+        vamosgs.github.io - cms
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-btn href="https://vamosgs.github.io/"
+               target="_blank"
+               flat>
+          View
+        </v-btn>
+        <v-btn @click="logOut"
+               flat>log out</v-btn>
+      </v-toolbar-items>
+    </v-toolbar>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'Dashboard',
+  computed: mapGetters({
+    secret: 'mainStore/secret'
+  }),
   methods: {
     logOut() {
       this.$emit('logOut');
@@ -17,12 +36,8 @@ export default {
   props: ['secretKey'],
   data: function() {
     return {
-      secret: this.secretKey
+      secreta: this.secretKey
     };
-  },
-  mounted() {
-    console.log(this.secret);
-    // this.$http.get()
   }
 };
 </script>

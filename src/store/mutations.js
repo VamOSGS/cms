@@ -7,3 +7,11 @@ export const logOut = (state) => {
   state.secret = '';
   state.loggedIn = false;
 };
+
+export const setData = (state, data) => {
+  state.data = data;
+};
+
+export const updateText = (state, { text, field }) => {
+  state.data[field] = text;
+};

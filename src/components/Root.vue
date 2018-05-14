@@ -24,21 +24,11 @@ export default {
   },
   methods: {
     ...mapActions(['logIn']),
-    handleLogin({ token, secret }) {
-      localStorage.setItem('token', token);
-      this.secret = secret;
-      this.loggedIn = true;
-    },
-    handleLogOut() {
-      localStorage.removeItem('token');
-      this.loggedIn = false;
-      this.secret = '';
-    },
     checkLoggin() {
       const token = localStorage.getItem('token');
       if (token) {
         const { tokenData } = jwtDecode(token);
-        this.logIn(token.secret);
+        this.logIn(tokenData.secret);
       }
     }
   }

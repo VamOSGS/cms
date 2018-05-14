@@ -17,10 +17,16 @@
                       :type="vIconShow ? 'password' : 'text'"
                       :rules="passRules"
                       label="Password"
+                      @keyup.enter="submit"
                       required>
         </v-text-field>
+        <v-progress-circular :width="3"
+                             v-if="loading"
+                             indeterminate
+                             color="primary"></v-progress-circular>
         <v-btn @click="submit"
                color="primary"
+               v-if="!loading"
                :disabled="!valid"
                flat>Login</v-btn>
       </v-form>
@@ -32,8 +38,9 @@
 export default {
   name: 'Login',
   data: () => ({
-    server: 'https://cms-auth-server.herokuapp.com/auth',
+    server: 'https://cms-auth-server.herokuapp.com',
     valid: false,
+    loading: false,
     vIconShow: true,
     password: '',
     username: '',
@@ -42,9 +49,10 @@ export default {
   }),
   methods: {
     submit() {
+      this.loading = true;
       const { username, password } = this;
       this.$http
-        .post(this.server, {
+        .post(`${this.server}/auth`, {
           username,
           password
         })
@@ -63,6 +71,9 @@ export default {
               v => v !== password || res.message
             ];
           }
+          setTimeout(() => {
+            this.loading = false;
+          }, 500);
         });
     }
   },
@@ -82,6 +93,7 @@ export default {
   margin: 0;
   .form {
     width: 400px;
+    height: 360px;
     border-top: 2px solid #2196f3;
     margin: auto;
     padding: 40px;

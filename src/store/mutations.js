@@ -15,3 +15,7 @@ export const setData = (state, data) => {
 export const updateText = (state, { text, field }) => {
   state.data[field] = text;
 };
+
+export const removePackage = (state, pkg) => {
+  state.data.packages = state.data.packages.filter(item => item !== pkg);
+};

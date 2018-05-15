@@ -19,18 +19,21 @@
 
     </v-toolbar>
     <TextEditor/>
+    <Packages/>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import TextEditor from './TextEdtior';
+import Packages from './Packages';
 
 export default {
   name: 'Dashboard',
   computed: { ...mapGetters(['secret']) },
   components: {
     TextEditor,
+    Packages,
   },
   data() {
     return {
@@ -55,5 +58,6 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less">
+
 </style>

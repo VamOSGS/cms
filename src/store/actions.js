@@ -13,3 +13,7 @@ export const setData = ({ commit }, data) => {
 export const updateText = ({ commit }, data) => {
   commit('updateText', data);
 };
+
+export const removePacakge = ({ commit }, pkg) => {
+  commit('removePacakge', pkg);
+};

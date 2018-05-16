@@ -20,6 +20,7 @@
     </v-toolbar>
     <TextEditor/>
     <Packages/>
+    <Projects/>
   </div>
 </template>
 
@@ -27,6 +28,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import TextEditor from './TextEdtior';
 import Packages from './Packages';
+import Projects from './Projects';
 
 export default {
   name: 'Dashboard',
@@ -34,6 +36,7 @@ export default {
   components: {
     TextEditor,
     Packages,
+    Projects,
   },
   data() {
     return {

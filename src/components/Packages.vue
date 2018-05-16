@@ -1,9 +1,12 @@
 <template>
   <div>
     <h1>Packages</h1>
-    <v-text-field label="Package name"
-                  @keyup.enter="handleAdd"
-                  v-model="newPackage"></v-text-field>
+    <div>
+      <v-text-field label="Package name"
+                    @keyup.enter="handleAdd"
+                    v-model="newPackage"></v-text-field>
+      <v-btn @click="handleAdd">add</v-btn>
+    </div>
     <v-chip close
             color="teal"
             @input="removePkg(pkg)"
@@ -41,5 +44,5 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="lesss">
 </style>

@@ -14,6 +14,10 @@ export const updateText = ({ commit }, data) => {
   commit('updateText', data);
 };
 
-export const removePacakge = ({ commit }, pkg) => {
-  commit('removePacakge', pkg);
+export const removePkg = ({ commit }, pkg) => {
+  commit('removePkg', pkg);
+};
+
+export const addPkg = ({ commit }, pkg) => {
+  commit('addPkg', pkg);
 };

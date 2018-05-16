@@ -1,40 +1,41 @@
 <template>
   <div>
     <h1>Packages</h1>
-    <v-select v-model="packages"
-              label="Packages..."
-              chips
-              tags
-              solo
-              prepend-icon="filter_list"
-              clearable>
-      <template slot="selection"
-                slot-scope="data">
-        <v-chip :selected="data.selected"
-                close
-                @input="remove(data.item)">
-          <strong>{{ data.item }}</strong>&nbsp;
-        </v-chip>
-      </template>
-    </v-select>
+    <v-text-field label="Package name"
+                  @keyup.enter="handleAdd"
+                  v-model="newPackage"></v-text-field>
+    <v-chip close
+            color="teal"
+            @input="removePkg(pkg)"
+            v-for="(pkg, key) in packages"
+            :key="key"
+            text-color="white">
+      <v-avatar>
+        <v-icon>check_circle</v-icon>
+      </v-avatar>
+      {{pkg}}
+    </v-chip>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapState } from 'vuex';
 
 export default {
   name: 'Packages',
+  computed: mapGetters(['packages']),
   data() {
     return {
-      chips: ['Programming', 'Playing video games', 'Watching', 'Sleeping'],
+      newPackage: '',
     };
   },
-  computed: mapGetters(['packages']),
   methods: {
-    ...mapActions(['removePacakge']),
-    remove(item) {
-      this.removePackage(item);
+    ...mapActions(['removePkg', 'addPkg']),
+    handleAdd() {
+      if (this.newPackage) {
+        this.addPkg(this.newPackage);
+        this.newPackage = '';
+      }
     },
   },
 };

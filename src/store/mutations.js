@@ -16,6 +16,10 @@ export const updateText = (state, { text, field }) => {
   state.data[field] = text;
 };
 
-export const removePackage = (state, pkg) => {
+export const removePkg = (state, pkg) => {
   state.data.packages = state.data.packages.filter(item => item !== pkg);
+};
+
+export const addPkg = (state, pkgs) => {
+  state.data.packages = [...state.data.packages, pkgs];
 };

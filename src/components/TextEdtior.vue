@@ -4,7 +4,7 @@
     <form>
       <div :key="key"
            v-for="(field, key) in Object.keys(textData)">
-        <v-text-field :label="field"
+        <v-text-field :label="field | capitalize"
                       @keyup="(e) => updateText({text: e.target.value, field})"
                       v-model="textData[field]"></v-text-field>
       </div>
@@ -21,6 +21,13 @@ export default {
   methods: {
     ...mapActions(['updateText']),
   },
+  filters: {
+    capitalize: function (value) {
+      if (!value) return ''
+      value = value.toString()
+      return value.charAt(0).toUpperCase() + value.slice(1)
+    }
+  }
 };
 </script>
 

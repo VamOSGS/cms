@@ -21,3 +21,11 @@ export const removePkg = ({ commit }, pkg) => {
 export const addPkg = ({ commit }, pkg) => {
   commit('addPkg', pkg);
 };
+
+export const addProject = ({ commit }, project) => {
+  commit('addProject', project);
+};
+
+export const removeProject = ({ commit }, project) => {
+  commit('removeProject', project);
+};

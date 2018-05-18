@@ -32,5 +32,11 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less">
+.header {
+  position: absolute;
+  z-index: 204;
+  top: 0;
+  left: 0;
+}
 </style>

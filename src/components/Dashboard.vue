@@ -1,10 +1,11 @@
 <template>
   <div class="dashboard">
+    <Loader :loading="loading" />
     <Header class="header" />
     <TextEditor class="section" />
     <Projects class="section" />
-    <Packages class="section" />
-    <Sender />
+    <Packages class="section packages" />
+    <Sender class="section" />
   </div>
 </template>
 
@@ -15,6 +16,7 @@ import TextEditor from './TextEdtior';
 import Packages from './Packages';
 import Projects from './Projects';
 import Sender from './Sender';
+import Loader from './Loader';
 
 export default {
   name: 'Dashboard',
@@ -25,15 +27,26 @@ export default {
     Packages,
     Projects,
     Sender,
+    Loader,
   },
   methods: mapActions(['setData']),
+  data() {
+    return {
+      loading: true,
+    };
+  },
   created() {
     this.$http
       .get(`${this.jsonStorage}/latest`, {
         headers: { private: 'true', 'secret-key': this.secret },
       })
       .then(res => res.body)
-      .then(res => this.setData(res));
+      .then(res => {
+        this.setData(res);
+        setTimeout(() => {
+          this.loading = false;
+        }, 1000);
+      });
   },
 };
 </script>
@@ -42,18 +55,16 @@ export default {
 .dashboard {
   width: 70%;
   margin: 80px auto 0;
-  .header {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
+  box-shadow: 0px -5px 42px -5px rgba(0, 0, 0, 0.15);
   .section {
-    box-shadow: 0px -5px 42px -5px rgba(0, 0, 0, 0.15);
-    margin: 5px 0;
     padding: 5px;
+    margin: 5px 0;
     .input {
       display: flex;
       align-items: center;
+    }
+    .packages {
+      margin-top: 10px;
     }
   }
 }

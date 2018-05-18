@@ -11,6 +11,6 @@ export default {
     'Store',
     'DiscussM-backend',
   ],
-  loaded: false,
+  loggedIn: false,
   data: {},
 };

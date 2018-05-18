@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard">
     <Loader :loading="loading" />
-    <Header class="header" />
+    <Header />
     <TextEditor class="section" />
     <Projects class="section" />
     <Packages class="section packages" />
@@ -55,7 +55,10 @@ export default {
 .dashboard {
   width: 70%;
   margin: 80px auto 0;
-  box-shadow: 0px -5px 42px -5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px -5px 42px -5px rgba(0, 0, 0, 0.1);
+  @media screen and (max-width: 420px) {
+    width: 90%;
+  }
   .section {
     padding: 5px;
     margin: 5px 0;

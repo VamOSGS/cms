@@ -9,7 +9,7 @@ import store from './store';
 
 Vue.use(Vuetify, {
   theme: {
-    primary: colors.blue.base,
+    primary: colors.teal.base,
     secondary: colors.grey.darken1,
     accent: colors.shades.black,
     error: colors.red.accent3,

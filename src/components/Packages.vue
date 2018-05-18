@@ -8,7 +8,7 @@
       <v-btn @click="handleAdd">add</v-btn>
     </div>
     <v-chip close
-            color="teal"
+            color="primary"
             @input="removePkg(pkg)"
             v-for="(pkg, key) in packages"
             :key="key"
@@ -45,7 +45,4 @@ export default {
 </script>
 
 <style lang="less">
-.packages {
-  margin-top: 25px;
-}
 </style>

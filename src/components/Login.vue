@@ -89,7 +89,8 @@ export default {
   .form {
     width: 400px;
     height: 360px;
-    border-top: 2px solid #2196f3;
+    border-top: 2px solid #009688;
+    // border-top: 2px solid #2196f3;
     margin: auto;
     padding: 40px;
     @media screen and (max-width: 410px) {

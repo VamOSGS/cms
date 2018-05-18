@@ -7,7 +7,7 @@
       <v-btn @click="handleAdd">add</v-btn>
     </div>
     <v-chip close
-            color="teal"
+            color="primary"
             v-for="(project, key) in projects"
             :key="key"
             @input="removeProject(project)"

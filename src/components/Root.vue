@@ -16,7 +16,7 @@ export default {
   name: 'Root',
   components: {
     Login,
-    Dashboard
+    Dashboard,
   },
   computed: { ...mapGetters(['loggedIn', 'secret']) },
   beforeMount() {
@@ -30,15 +30,18 @@ export default {
         const { tokenData } = jwtDecode(token);
         this.logIn(tokenData.secret);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="less">
-body {
-  margin: 0;
-  overflow-x: hidden;
-  font-family: 'Helvetica', 'Arial';
+html {
+  overflow: auto;
+  body {
+    margin: 0;
+    overflow-x: hidden;
+    font-family: 'Helvetica', 'Arial';
+  }
 }
 </style>

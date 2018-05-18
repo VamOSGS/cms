@@ -4,7 +4,7 @@
     <TextEditor class="section" />
     <Projects class="section" />
     <Packages class="section" />
-    <Sender class="section" />
+    <Sender />
   </div>
 </template>
 
@@ -47,9 +47,14 @@ export default {
     top: 0;
     left: 0;
   }
-  .input {
-    display: flex;
-    align-items: center;
+  .section {
+    box-shadow: 0px -5px 42px -5px rgba(0, 0, 0, 0.15);
+    margin: 5px 0;
+    padding: 5px;
+    .input {
+      display: flex;
+      align-items: center;
+    }
   }
 }
 </style>

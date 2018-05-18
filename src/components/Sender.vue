@@ -1,7 +1,11 @@
 <template>
   <div>
-    <v-btn @click="send">
+    <v-btn :loading="loading3"
+           :disabled="loading3"
+           @click.native="send = 'loading3'">
       Update
+      <v-icon right
+              dark>cloud_upload</v-icon>
     </v-btn>
   </div>
 </template>

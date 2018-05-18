@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Packages</h1>
+    <h1 class="packages">Packages</h1>
     <div class="input">
       <v-text-field label="Package name"
                     @keyup.enter="handleAdd"
@@ -44,5 +44,8 @@ export default {
 };
 </script>
 
-<style lang="lesss">
+<style lang="less">
+.packages {
+  margin-top: 25px;
+}
 </style>

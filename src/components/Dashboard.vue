@@ -1,10 +1,10 @@
 <template>
   <div class="dashboard">
     <Header class="header" />
-    <TextEditor/>
-    <Projects/>
-    <Packages/>
-    <Sender/>
+    <TextEditor class="section" />
+    <Projects class="section" />
+    <Packages class="section" />
+    <Sender class="section" />
   </div>
 </template>
 
@@ -40,7 +40,7 @@ export default {
 
 <style lang="less">
 .dashboard {
-  width: 80%;
+  width: 70%;
   margin: 80px auto 0;
   .header {
     position: absolute;

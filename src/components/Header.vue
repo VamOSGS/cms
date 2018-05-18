@@ -63,7 +63,7 @@ export default {
 
 <style lang="less">
 .header {
-  position: fixed;
+  position: fixed !important;
   z-index: 204;
   top: 0;
   left: 0;

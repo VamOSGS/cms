@@ -1,11 +1,13 @@
 <template>
-  <div class="dashboard">
+  <div>
     <Loader :loading="loading" />
     <Header />
-    <TextEditor class="section" />
-    <Projects class="section" />
-    <Packages class="section packages" />
-    <Sender class="section" />
+    <div class="dashboard">
+      <TextEditor class="section" />
+      <Projects class="section" />
+      <Packages class="section packages" />
+      <Sender class="section" />
+    </div>
   </div>
 </template>
 

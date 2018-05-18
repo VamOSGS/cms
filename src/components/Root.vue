@@ -1,8 +1,7 @@
 <template>
   <v-app dark>
     <Login v-if="!loggedIn" />
-    <Dashboard v-if="loggedIn"
-               :secret="secret" />
+    <Dashboard v-if="loggedIn" />
   </v-app>
 </template>
 

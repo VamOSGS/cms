@@ -21,6 +21,7 @@
     <TextEditor/>
     <Packages/>
     <Projects/>
+    <Sender/>
   </div>
 </template>
 
@@ -29,19 +30,16 @@ import { mapGetters, mapActions } from 'vuex';
 import TextEditor from './TextEdtior';
 import Packages from './Packages';
 import Projects from './Projects';
+import Sender from './Sender';
 
 export default {
   name: 'Dashboard',
-  computed: { ...mapGetters(['secret']) },
+  computed: { ...mapGetters(['secret', 'jsonStorage']) },
   components: {
     TextEditor,
     Packages,
     Projects,
-  },
-  data() {
-    return {
-      jsonStorage: 'https://api.jsonbin.io/b/5af6da0fc83f6d4cc7349388/latest',
-    };
+    Sender,
   },
   methods: {
     ...mapActions(['logOut', 'setData']),
@@ -50,9 +48,9 @@ export default {
       this.logOut();
     },
   },
-  beforeMount() {
+  created() {
     this.$http
-      .get(this.jsonStorage, {
+      .get(`${this.jsonStorage}/latest`, {
         headers: { private: 'true', 'secret-key': this.secret },
       })
       .then(res => res.body)
@@ -62,5 +60,4 @@ export default {
 </script>
 
 <style lang="less">
-
 </style>

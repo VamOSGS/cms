@@ -29,3 +29,11 @@ export const addProject = ({ commit }, project) => {
 export const removeProject = ({ commit }, project) => {
   commit('removeProject', project);
 };
+
+export const changeProjectType = ({ commit }, type) => {
+  commit('changeProjectType', type);
+};
+
+export const changeProjectsCount = ({ commit }, type) => {
+  commit('changeProjectsCount', type);
+};

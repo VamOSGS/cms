@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Packages</h1>
-    <div>
+    <div class="input">
       <v-text-field label="Package name"
                     @keyup.enter="handleAdd"
                     v-model="newPackage"></v-text-field>

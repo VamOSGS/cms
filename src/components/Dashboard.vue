@@ -1,32 +1,16 @@
 <template>
-  <div>
-
-    <v-toolbar>
-      <v-toolbar-side-icon></v-toolbar-side-icon>
-      <v-toolbar-title>
-        vamosgs.github.io - cms
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn href="https://vamosgs.github.io/"
-               target="_blank"
-               flat>
-          View
-        </v-btn>
-        <v-btn @click="handleLogOut"
-               flat>log out</v-btn>
-      </v-toolbar-items>
-
-    </v-toolbar>
+  <div class="dashboard">
+    <Header class="header" />
     <TextEditor/>
-    <Packages/>
     <Projects/>
+    <Packages/>
     <Sender/>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import Header from './Header';
 import TextEditor from './TextEdtior';
 import Packages from './Packages';
 import Projects from './Projects';
@@ -36,18 +20,13 @@ export default {
   name: 'Dashboard',
   computed: { ...mapGetters(['secret', 'jsonStorage']) },
   components: {
+    Header,
     TextEditor,
     Packages,
     Projects,
     Sender,
   },
-  methods: {
-    ...mapActions(['logOut', 'setData']),
-    handleLogOut() {
-      localStorage.removeItem('token');
-      this.logOut();
-    },
-  },
+  methods: mapActions(['setData']),
   created() {
     this.$http
       .get(`${this.jsonStorage}/latest`, {
@@ -60,4 +39,17 @@ export default {
 </script>
 
 <style lang="less">
+.dashboard {
+  width: 80%;
+  margin: 80px auto 0;
+  .header {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .input {
+    display: flex;
+    align-items: center;
+  }
+}
 </style>

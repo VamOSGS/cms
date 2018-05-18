@@ -33,5 +33,19 @@ export const removeProject = (state, project) => {
 };
 
 export const changeProjectType = (state, type) => {
-  state.data.packagesType = type;
+  state.data.projectsShowType = type;
+  const { projects } = state.projects;
+  if (type === 'All') {
+    if (projects.length > 1) state.projectsBackup = projects;
+    state.data.projects = ['all'];
+  } else if (type === 'Last N-s') {
+    if (projects.length > 1) state.projectsBackup = projects;
+    state.data.projects = [5];
+  } else {
+    state.data.projects = state.projectsBackup;
+  }
+};
+
+export const changeProjectsCount = (state, count) => {
+  state.data.projects = [count];
 };

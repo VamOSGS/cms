@@ -46,7 +46,7 @@ export default {
     password: '',
     username: '',
     nameRules: [v => !!v || 'Name is required'],
-    passRules: [v => !!v || 'Password is required']
+    passRules: [v => !!v || 'Password is required'],
   }),
   methods: {
     ...mapActions(['logIn']),
@@ -56,7 +56,7 @@ export default {
       this.$http
         .post(`${this.server}/auth`, {
           username,
-          password
+          password,
         })
         .then(res => res.data, console.log)
         .then(res => {
@@ -64,23 +64,17 @@ export default {
             localStorage.setItem('token', res.data.token);
             this.logIn(res.data.secret);
           } else if (res.field === 'username') {
-            this.nameRules = [
-              ...this.nameRules,
-              v => v !== username || res.message
-            ];
+            this.nameRules = [...this.nameRules, v => v !== username || res.message];
           } else if (res.field === 'password') {
-            this.passRules = [
-              ...this.passRules,
-              v => v !== password || res.message
-            ];
+            this.passRules = [...this.passRules, v => v !== password || res.message];
           }
           this.loading = false;
         });
-    }
+    },
   },
   created() {
     this.$http.get(this.server);
-  }
+  },
 };
 </script>
 
